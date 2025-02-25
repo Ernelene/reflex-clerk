@@ -40,7 +40,6 @@ def install_signin_page(app: rx.App, publishable_key=None, route="/signin", **pr
             rx.vstack(
                 sign_in(
                     path=route,
-                    force_redirect_url="/",
                     **props
                 ),
                 align="center",
@@ -51,8 +50,11 @@ def install_signin_page(app: rx.App, publishable_key=None, route="/signin", **pr
         publishable_key=publishable_key
     )
 
-    # app.pages[route[1:] + "/[[...signin]]/index"] = signin_page
-    app.add_page(signin_page, route="/signin")
+    app.add_page(signin_page, route=route)
+    
+    # Add a catch-all route for Clerk's additional authentication paths
+    # This will handle routes like /signin/factor-one, /signin/password, etc.
+    app.add_page(signin_page, route=f"{route}/[...auth]")
 
 
 
@@ -101,8 +103,11 @@ def install_signup_page(app: rx.App, publishable_key=None, route="/signup", **pr
         publishable_key=publishable_key
     )
 
-    # app.pages[route[1:] + "/[[...signup]]/index"] = signup_page
-    app.add_page(signup_page, route="/signup")
+    app.add_page(signup_page, route=route)
+    
+    # Add a catch-all route for Clerk's additional authentication paths
+    # This will handle routes like /signin/factor-one, /signin/password, etc.
+    app.add_page(signup_page, route=f"{route}/[...auth]")
 
 
 def install_pages(
