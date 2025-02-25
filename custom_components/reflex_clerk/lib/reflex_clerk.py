@@ -40,6 +40,7 @@ def install_signin_page(app: rx.App, publishable_key=None, route="/signin", **pr
             rx.vstack(
                 sign_in(
                     path=route,
+                    force_redirect_url="/",
                     **props
                 ),
                 align="center",
