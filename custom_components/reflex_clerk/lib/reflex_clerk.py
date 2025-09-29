@@ -54,7 +54,7 @@ def install_signin_page(app: rx.App, publishable_key=None, route="/signin", **pr
     
     # Add a catch-all route for Clerk's additional authentication paths
     # This will handle routes like /signin/factor-one, /signin/password, etc.
-    app.add_page(signin_page, route=f"{route}/[...auth]")
+    app.add_page(signin_page, route=f"{route}/[[...splat]]")
 
 
 
