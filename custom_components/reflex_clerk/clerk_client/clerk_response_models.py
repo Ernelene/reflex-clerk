@@ -41,13 +41,8 @@ class Verification(pydantic.BaseModel):
         attempts: The number of attempts related to the verification.
         expire_at: The time the verification will expire at.
     """
-    strategy: Optional[
-        Literal[
-            "oauth_google", "oauth_github", "oauth_mock", "admin",
-            "phone_code", "email_code", "reset_password_email_code",
-            "web3_metamask_signature", "from_oauth_google", "from_oauth_github"
-        ]]
-    status: Optional[Literal['unverified', 'verified', 'transferable', 'failed', 'expired']]
+    strategy: Optional[str] = None
+    status: Optional[Literal['unverified', 'verified', 'transferable', 'failed', 'expired']] = None
     nonce: Optional[str] = None
     attempts: Optional[int] = None
     expire_at: Optional[int] = None
